@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arcy Digital - Business Card</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <!-- Techno/Futuristic Font for Logo -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- QR Code Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0f172a; /* Slate 900 */
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background Gradient */
+        .blob {
+            position: absolute;
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.5;
+            animation: float 10s infinite ease-in-out;
+        }
+        .blob-1 { top: -10%; left: -10%; width: 300px; height: 300px; background: #3b82f6; } /* Blue */
+        .blob-2 { bottom: 10%; right: -10%; width: 250px; height: 250px; background: #8b5cf6; } /* Violet */
+        .blob-3 { top: 40%; left: 20%; width: 200px; height: 200px; background: #06b6d4; } /* Cyan */
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(20px, -20px); }
+        }
+
+        /* Glassmorphism Card */
+        .glass-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .glass-button {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.2s ease;
+            cursor: pointer;
+            display: flex;
+            text-decoration: none;
+        }
+        .glass-button:active {
+            transform: scale(0.98);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Logo Styles */
+        .logo-font {
+            font-family: 'Orbitron', sans-serif;
+        }
+        .logo-gradient {
+            background: linear-gradient(135deg, #22d3ee 0%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+
+    <!-- Background Blobs -->
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+
+    <!-- Main Card -->
+    <main class="glass-card w-full max-w-md rounded-3xl p-6 relative overflow-hidden">
+        
+        <!-- Header -->
+        <div class="text-center pt-2">
+            <!-- New ARCY Logo -->
+            <div class="mb-5 relative inline-block group">
+                <!-- Logo Glow Effect -->
+                <div class="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-lg blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+                
+                <div class="relative px-6 py-4 bg-slate-900 rounded-xl ring-1 ring-slate-800 flex items-center justify-center">
+                    <div class="text-left">
+                        <h1 class="logo-font text-4xl font-black logo-gradient tracking-wider">ARCY</h1>
+                        <p class="text-[0.6rem] text-slate-400 font-medium uppercase tracking-[0.3em] text-right -mt-1">Digital</p>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="text-xl font-bold text-white mb-1">Sapne Local, Pehchan Global</h2>
+            <p class="text-cyan-400 text-xs font-medium tracking-wide uppercase">Website Developer & Designer</p>
+        </div>
+
+        <!-- Quick Actions (Grid) -->
+        <div class="grid grid-cols-3 gap-3 mt-8">
+            <!-- Call Button -->
+            <a href="tel:+919131279165" class="glass-button flex-col items-center justify-center p-3 rounded-xl group">
+                <div class="w-10 h-10 rounded-full bg-cyan-500/20 flex items-center justify-center text-cyan-400 mb-2 group-hover:bg-cyan-500 group-hover:text-white transition-colors">
+                    <i class="ph-fill ph-phone text-xl"></i>
+                </div>
+                <span class="text-xs font-medium text-slate-300">Call Now</span>
+            </a>
+            
+            <!-- Email Button (Copy) -->
+            <button onclick="copyToClipboard('rahuldhakad201.rd@gmail.com')" class="glass-button flex-col items-center justify-center p-3 rounded-xl group">
+                <div class="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400 mb-2 group-hover:bg-blue-500 group-hover:text-white transition-colors">
+                    <i class="ph-fill ph-copy text-xl"></i>
+                </div>
+                <span class="text-xs font-medium text-slate-300">Copy Email</span>
+            </button>
+
+            <!-- Save Contact Button -->
+            <button onclick="downloadVCard()" class="glass-button flex-col items-center justify-center p-3 rounded-xl group">
+                <div class="w-10 h-10 rounded-full bg-violet-500/20 flex items-center justify-center text-violet-400 mb-2 group-hover:bg-violet-500 group-hover:text-white transition-colors">
+                    <i class="ph-fill ph-user-plus text-xl"></i>
+                </div>
+                <span class="text-xs font-medium text-slate-300">Save</span>
+            </button>
+        </div>
+
+        <!-- Phone Numbers List -->
+        <div class="mt-6 space-y-3">
+            <!-- Number 1 -->
+            <div class="glass-button flex items-center justify-between p-3 rounded-xl">
+                <a href="tel:+919131279165" class="flex items-center gap-3 flex-1 no-underline">
+                    <div class="bg-slate-800 p-2 rounded-lg">
+                        <i class="ph-fill ph-phone text-cyan-400"></i>
+                    </div>
+                    <div class="flex flex-col text-left">
+                        <span class="text-xs text-slate-400">Primary</span>
+                        <span class="text-sm font-semibold text-slate-100 tracking-wide">91312 79165</span>
+                    </div>
+                </a>
+                <button class="ml-2 p-2 text-slate-400 hover:text-white hover:bg-slate-700 rounded-lg transition-colors z-10" onclick="copyToClipboard('9131279165')" aria-label="Copy number">
+                    <i class="ph ph-copy text-lg"></i>
+                </button>
+            </div>
+
+            <!-- Number 2 -->
+            <div class="glass-button flex items-center justify-between p-3 rounded-xl">
+                <a href="tel:+918718074280" class="flex items-center gap-3 flex-1 no-underline">
+                    <div class="bg-slate-800 p-2 rounded-lg">
+                        <i class="ph-fill ph-phone text-cyan-400"></i>
+                    </div>
+                    <div class="flex flex-col text-left">
+                        <span class="text-xs text-slate-400">Secondary</span>
+                        <span class="text-sm font-semibold text-slate-100 tracking-wide">87180 74280</span>
+                    </div>
+                </a>
+                <button class="ml-2 p-2 text-slate-400 hover:text-white hover:bg-slate-700 rounded-lg transition-colors z-10" onclick="copyToClipboard('8718074280')" aria-label="Copy number">
+                    <i class="ph ph-copy text-lg"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Social Links -->
+        <div class="mt-6 space-y-3">
+            <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider ml-1 mb-2">Connect with Arcy</h3>
+            
+            <a href="https://www.linkedin.com/in/rahuldhakad201" target="_blank" class="glass-button flex items-center gap-4 p-3 rounded-xl w-full hover:bg-slate-800/50 transition-all">
+                <i class="ph-fill ph-linkedin-logo text-2xl text-[#0077b5]"></i>
+                <span class="text-sm font-medium text-white">LinkedIn</span>
+                <i class="ph ph-arrow-up-right ml-auto text-slate-500"></i>
+            </a>
+
+            <a href="https://github.com/githubRahuld" target="_blank" class="glass-button flex items-center gap-4 p-3 rounded-xl w-full hover:bg-slate-800/50 transition-all">
+                <i class="ph-fill ph-github-logo text-2xl text-white"></i>
+                <span class="text-sm font-medium text-white">GitHub</span>
+                <i class="ph ph-arrow-up-right ml-auto text-slate-500"></i>
+            </a>
+
+            <a href="https://my-portfolio-three-smoky-14.vercel.app/" target="_blank" class="glass-button flex items-center gap-4 p-3 rounded-xl w-full hover:bg-slate-800/50 transition-all">
+                <i class="ph-fill ph-globe text-2xl text-cyan-400"></i>
+                <span class="text-sm font-medium text-white">My Portfolio</span>
+                <i class="ph ph-arrow-up-right ml-auto text-slate-500"></i>
+            </a>
+        </div>
+
+        <!-- QR Code Section -->
+        <div class="mt-8 pt-6 border-t border-slate-700/50 text-center">
+            <button onclick="toggleQRCode()" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-800/50 text-sm text-slate-300 hover:text-white hover:bg-slate-800 transition-all cursor-pointer">
+                <i class="ph ph-qr-code text-lg"></i>
+                <span>Show QR Code</span>
+            </button>
+
+            <div id="qr-container" class="hidden mt-6 p-4 bg-white rounded-2xl mx-auto w-max shadow-2xl animate-fade-in">
+                <div id="qrcode"></div>
+                <p class="text-slate-900 text-xs font-bold mt-3 uppercase tracking-wide">Arcy Digital</p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="mt-8 text-center pb-4">
+            <p class="text-[10px] text-slate-600">© 2025 Arcy Digital</p>
+        </div>
+
+    </main>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-8 left-1/2 transform -translate-x-1/2 bg-slate-900 text-white px-6 py-3 rounded-full shadow-2xl border border-slate-700 opacity-0 transition-all duration-300 pointer-events-none z-50 flex items-center gap-3 translate-y-10">
+        <i class="ph-fill ph-check-circle text-emerald-400 text-xl"></i>
+        <span class="text-sm font-medium" id="toast-msg">Copied to clipboard!</span>
+    </div>
+
+    <script>
+        // --- QR CODE GENERATION ---
+        document.addEventListener("DOMContentLoaded", () => {
+            const currentUrl = window.location.href;
+            
+            document.getElementById("qrcode").innerHTML = "";
+
+            new QRCode(document.getElementById("qrcode"), {
+                text: currentUrl,
+                width: 160,
+                height: 160,
+                colorDark : "#0f172a", 
+                colorLight : "#ffffff",
+                correctLevel : QRCode.CorrectLevel.H
+            });
+        });
+
+        function toggleQRCode() {
+            const container = document.getElementById('qr-container');
+            container.classList.toggle('hidden');
+        }
+
+        // --- VCARD DOWNLOAD (SAVE CONTACT) ---
+        function downloadVCard() {
+            const vcardData = `BEGIN:VCARD
+VERSION:3.0
+FN:Rahul Dhakad
+N:Dhakad;Rahul;;;
+ORG:Arcy Digital
+TITLE:Website Developer & Designer
+TEL;TYPE=CELL:+919131279165
+TEL;TYPE=WORK:+918718074280
+EMAIL;TYPE=WORK,INTERNET:rahuldhakad201.rd@gmail.com
+URL;TYPE=LinkedIn:https://www.linkedin.com/in/rahuldhakad201
+URL;TYPE=Portfolio:https://my-portfolio-three-smoky-14.vercel.app/
+URL;TYPE=GitHub:https://github.com/githubRahuld
+NOTE:Arcy Digital - Modern Web Solutions
+END:VCARD`;
+
+            const blob = new Blob([vcardData], { type: 'text/vcard' });
+            const url = URL.createObjectURL(blob);
+            const newLink = document.createElement('a');
+            newLink.download = "Rahul_ArcyDigital.vcf";
+            newLink.href = url;
+            newLink.click();
+            
+            showToast("Contact file downloaded!");
+        }
+
+        // --- ROBUST COPY FUNCTION ---
+        function copyToClipboard(text) {
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showToast("Copied!");
+                }).catch(() => {
+                    fallbackCopy(text);
+                });
+            } else {
+                fallbackCopy(text);
+            }
+        }
+
+        function fallbackCopy(text) {
+            try {
+                const textArea = document.createElement("textarea");
+                textArea.value = text;
+                textArea.style.position = "fixed";
+                textArea.style.left = "-9999px";
+                textArea.style.top = "0";
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                const successful = document.execCommand('copy');
+                document.body.removeChild(textArea);
+                if (successful) {
+                    showToast("Copied!");
+                } else {
+                    showToast("Copy failed. Please copy manually.");
+                }
+            } catch (err) {
+                console.error('Fallback copy failed', err);
+                showToast("Error copying.");
+            }
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const msgSpan = document.getElementById('toast-msg');
+            msgSpan.innerText = message;
+            toast.classList.remove('opacity-0', 'translate-y-10');
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-10');
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
